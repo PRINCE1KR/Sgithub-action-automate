@@ -29,7 +29,7 @@ resource "aws_instance" "app_server" {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-unie-s3-bk8t"  
+  bucket = "my-nie-s3-bk8t"  
   acl    = "private"  
 
 }
