@@ -46,7 +46,7 @@ variable "create_s3_bucket" {
 
 # Create the S3 bucket conditionally based on the value of create_s3_bucket variable
 resource "aws_s3_bucket" "my_bucket" {
-  count  = var.create_s3_bucket ? 1 : 0
+  count  = var.create_s3_bucket ? 0 : 1
   bucket = "my-s3-bk8t"
   acl    = "private"
 }
