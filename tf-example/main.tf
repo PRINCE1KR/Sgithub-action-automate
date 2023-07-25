@@ -1,36 +1,42 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
+resource "aws_instance" "my_instance" {
+  ami                    = "ami-06b09bfacae1453cb"
+  vpc_security_group_ids = [aws_security_group.my_security_group.id]
+  subnet_id              = aws_subnet.my_subnet.id
+  count                  = 2
+  key_name               = "prin"
+  instance_type          = "t2.micro"
+}
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/*20.04-amd64-server-*"]
+resource "aws_vpc" "my_vpc" {
+  cidr_block = "192.168.1.0/24"
+}
+
+resource "aws_subnet" "my_subnet" {
+  vpc_id     = aws_vpc.my_vpc.id
+  cidr_block = "192.168.1.0/27"
+
+}
+
+resource "aws_security_group" "my_security_group" {
+  vpc_id      = aws_vpc.my_vpc.id
+  description = "allowing ssh and http traffic"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
-  owners = ["099720109477"] # Canonical
-}
-
-provider "aws" {
-  region = "us-east-2"
-}
-
-resource "aws_instance" "app_server" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  key_name      = "app-ssh-key"
-
-  tags = {
-    Name = var.ec2_name
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-nie-s3-bk8t"  
-  acl    = "private"  
-
-}
-
