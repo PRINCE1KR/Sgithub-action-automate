@@ -1,5 +1,5 @@
 resource "aws_instance" "my_instance" {
-  ami                    = "ami-06b09bfacae1453cb"
+  ami                    = "ami-00c6c849418b7612c"
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
   subnet_id              = aws_subnet.my_subnet.id
   count                  = 2
