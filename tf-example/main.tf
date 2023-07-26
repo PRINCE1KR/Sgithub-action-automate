@@ -41,7 +41,7 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-s3-bk8t"  
+  bucket = "my-s3-bk88t"  
   acl    = "private"  
 
 }
