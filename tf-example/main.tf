@@ -40,3 +40,8 @@ resource "aws_security_group" "my_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-s3-bk8t"  
+  acl    = "private"  
+
+}
