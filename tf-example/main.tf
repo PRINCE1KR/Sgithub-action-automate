@@ -2,7 +2,7 @@ resource "aws_instance" "my_instance" {
   ami                    = "ami-00c6c849418b7612c"
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
   subnet_id              = aws_subnet.my_subnet.id
-  count                  = 2
+  count                  = 1
   key_name               = "app-ssh-key"
   instance_type          = "t2.micro"
 }
@@ -41,7 +41,7 @@ resource "aws_security_group" "my_security_group" {
   }
 }
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "my-s3-bk88t"  
+  bucket = "my-s3-bktyrt"  
   acl    = "private"  
 
 }
